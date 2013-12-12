@@ -109,6 +109,13 @@ class trackbackController extends trackback
 		$oDocument = $oDocumentModel->getDocument($document_srl);
 		if(!$oDocument->isExists()) return new Object();
 		if($oDocument->getMemberSrl() != $logged_info->member_srl) return new Object();
+
+		// check config
+		if(!$oDocument->allowTrackback()) return new Object();
+		$oModuleModel = &getModel('module');
+		$config = $oModuleModel->getModuleConfig('trackback');
+		if(isset($config->enable_trackback) && $config->enable_trackback == "N") return new Object();
+
 		// Add a link sent yeokingeul
 		$oDocumentController = &getController('document');
 		$url = getUrl('','module','trackback','act','dispTrackbackSend','document_srl', $document_srl);

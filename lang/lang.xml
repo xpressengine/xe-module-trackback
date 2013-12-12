@@ -212,4 +212,8 @@
 		<value xml:lang="ko"><![CDATA[엮인글 발송을 실패하였습니다.]]></value>
 		<value xml:lang="en"><![CDATA[Failed to send]]></value>
 	</item>
+	<item name="total_trackback">
+		<value xml:lang="ko"><![CDATA[통합 엮인글]]></value>
+		<value xml:lang="en"><![CDATA[aggregate trackback]]></value>
+	</item>
 </lang>

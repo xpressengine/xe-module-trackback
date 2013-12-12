@@ -3,13 +3,35 @@ xe.lang.msg_empty_search_target = '{$lang->msg_empty_search_target}';
 xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 </script>
 <load target="js/trackback_admin.js" />
-<form action="">
 	<div class="x_page-header">
 		<h1>{$lang->trackback} <a class="x_icon-question-sign" href="./admin/help/index.html#UMAN_content_trackback" target="_blank">{$lang->help}</a></h1>
 	</div>
 	<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/trackback/tpl/trackback_list/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
+	
+<section class="section">
+	<h1>{$lang->total_trackback} {$lang->cmd_management}</h1>
+	<form action="./" method="post" class="x_form-horizontal">
+		<input type="hidden" name="module" value="trackback" />
+		<input type="hidden" name="act" value="procTrackbackAdminInsertConfig" />
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->total_trackback}</label>
+			<div class="x_controls">
+				<label class="x_inline">
+					<input type="radio" name="enable_trackback" value="Y" id="use_total_feed_yes" checked="checked"|cond="!$config->enable_trackback || $config->enable_trackback == 'Y'" /> {$lang->use}
+				</label>
+				<label class="x_inline">
+					<input type="radio" name="enable_trackback" value="N" id="use_total_feed_no" checked="checked"|cond="$config->enable_trackback == 'N'" /> {$lang->notuse}
+				</label>
+			</div>
+		</div>
+		<div class="btnArea x_clearfix">
+			<button type="submit" class="x_btn x_btn-primary x_pull-right">{$lang->cmd_save}</button>
+		</div>
+	</form>
+</section>
+<form action="">
 	<table width="100%" id="trackbackListTable" class="x_table x_table-striped x_table-hover">
 		<caption>
 			<strong>{$lang->all}({number_format($total_count)})</strong>
@@ -39,10 +61,10 @@ xe.lang.msg_empty_search_keyword = '{$lang->msg_empty_search_keyword}';
 			</tr>
 		</tbody>
 	</table>
+</form>
 	<div class="x_pull-right">
 		<a href="#listManager" class="x_btn modalAnchor" onclick="getTrackbackList();">{$lang->delete}</a>
 	</div>
-</form>
 <form action="" class="x_pagination">
 	<input type="hidden" name="error_return_url" value="" />
 	<input type="hidden" name="module" value="{$module}" />
