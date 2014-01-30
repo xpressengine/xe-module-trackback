@@ -312,6 +312,7 @@ class trackbackController extends trackback
 		// Information sent by
 		$http = parse_url($trackback_url);
 
+		$obj = new stdClass();
 		$obj->blog_name = str_replace(array('&lt;','&gt;','&amp;','&quot;'), array('<','>','&','"'), Context::getBrowserTitle());
 		$oModuleController->replaceDefinedLangCode($obj->blog_name);
 		$obj->title = $oDocument->getTitleText();
@@ -372,6 +373,7 @@ class trackbackController extends trackback
 	 */
 	function deleteTrackbackSender($time, $ipaddress, $url, $blog_name, $title, $excerpt)
 	{
+		$obj = new stdClass();
 		$obj->regdate = date("YmdHis",$_SERVER['REQUEST_TIME']-$time);
 		$obj->ipaddress = $ipaddress;
 		$obj->url = $url;
@@ -392,6 +394,10 @@ class trackbackController extends trackback
 	{
 		$oModuleModel = &getModel('module');
 		$trackbackConfig = $oModuleModel->getModulePartConfig('trackback', $obj->originModuleSrl);
+		if(!$trackbackConfig)
+		{
+			$trackbackConfig = new stdClass();
+		}
 
 		$oModuleController = &getController('module');
 		if(is_array($obj->moduleSrlList))

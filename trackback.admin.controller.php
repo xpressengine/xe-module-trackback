@@ -54,6 +54,7 @@ class trackbackAdminController extends trackback
 	 */
 	function procTrackbackAdminInsertConfig()
 	{
+		$config = new stdClass();
 		$config->enable_trackback = Context::get('enable_trackback');
 		if($config->enable_trackback != 'Y') $config->enable_trackback = 'N';
 
@@ -104,6 +105,7 @@ class trackbackAdminController extends trackback
 
 		$oTrackbackAdminModel = &getAdminModel('trackback');
 		//$columnList = array('trackback_srl');
+		$args = new stdClass();
 		$args->trackbackSrlList = array($trackback_srl);
 
 		$output = $oTrackbackAdminModel->getTotalTrackbackList($args);
