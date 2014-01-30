@@ -71,6 +71,7 @@ class trackbackController extends trackback
 		if(count($trackbackSrlList) > 0)
 		{
 			$oTrackbackAdminModel = &getAdminModel('trackback');
+			$args = new stdClass();
 			$args->trackbackSrlList = $trackbackSrlList;
 			$args->list_count = 100;
 			$output = $oTrackbackAdminModel->getTotalTrackbackList($args);
