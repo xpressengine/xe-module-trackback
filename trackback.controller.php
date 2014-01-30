@@ -264,6 +264,7 @@ class trackbackController extends trackback
 		// Check if a permossion is granted
 		if(!$is_admin && !$oDocumentModel->isGranted($document_srl)) return new Object(-1, 'msg_not_permitted');
 
+		$args = new stdClass();
 		$args->trackback_srl = $trackback_srl;
 		$output = executeQuery('trackback.deleteTrackback', $args);
 		if(!$output->toBool()) return new Object(-1, 'msg_error_occured');
