@@ -26,6 +26,7 @@ class trackbackModel extends trackback
 	 */
 	function getTrackback($trackback_srl, $columnList = array())
 	{
+		$args = new stdClass();
 		$args->trackback_srl = $trackback_srl;
 		$output = executeQuery('trackback.getTrackback', $args, $columnList);
 		return $output;
@@ -38,6 +39,7 @@ class trackbackModel extends trackback
 	 */
 	function getTrackbackCount($document_srl)
 	{
+		$args = new stdClass();
 		$args->document_srl = $document_srl;
 		$output = executeQuery('trackback.getTrackbackCount', $args);
 		$total_count = $output->data->count;
@@ -52,6 +54,7 @@ class trackbackModel extends trackback
 	 */
 	function getTrackbackAllCount($module_srl)
 	{
+		$args = new stdClass();
 		$args->module_srl = $module_srl;
 		$output = executeQuery('trackback.getTrackbackCount', $args);
 		$total_count = $output->data->count;
@@ -68,6 +71,7 @@ class trackbackModel extends trackback
 	 */
 	function getTrackbackCountByIPAddress($document_srl, $ipaddress)
 	{
+		$args = new stdClass();
 		$args->document_srl = $document_srl;
 		$args->ipaddress = $ipaddress;
 		$output = executeQuery('trackback.getTrackbackCountByIPAddress', $args);
@@ -83,6 +87,7 @@ class trackbackModel extends trackback
 	 */
 	function getTrackbackList($document_srl)
 	{
+		$args = new stdClass();
 		$args->document_srl = $document_srl;
 		$args->list_order = 'list_order';
 		$output = executeQuery('trackback.getTrackbackList', $args);

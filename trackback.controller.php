@@ -71,6 +71,7 @@ class trackbackController extends trackback
 		if(count($trackbackSrlList) > 0)
 		{
 			$oTrackbackAdminModel = &getAdminModel('trackback');
+			$args = new stdClass();
 			$args->trackbackSrlList = $trackbackSrlList;
 			$args->list_count = 100;
 			$output = $oTrackbackAdminModel->getTotalTrackbackList($args);
@@ -263,6 +264,7 @@ class trackbackController extends trackback
 		// Check if a permossion is granted
 		if(!$is_admin && !$oDocumentModel->isGranted($document_srl)) return new Object(-1, 'msg_not_permitted');
 
+		$args = new stdClass();
 		$args->trackback_srl = $trackback_srl;
 		$output = executeQuery('trackback.deleteTrackback', $args);
 		if(!$output->toBool()) return new Object(-1, 'msg_error_occured');
@@ -310,6 +312,7 @@ class trackbackController extends trackback
 		// Information sent by
 		$http = parse_url($trackback_url);
 
+		$obj = new stdClass();
 		$obj->blog_name = str_replace(array('&lt;','&gt;','&amp;','&quot;'), array('<','>','&','"'), Context::getBrowserTitle());
 		$oModuleController->replaceDefinedLangCode($obj->blog_name);
 		$obj->title = $oDocument->getTitleText();
@@ -370,6 +373,7 @@ class trackbackController extends trackback
 	 */
 	function deleteTrackbackSender($time, $ipaddress, $url, $blog_name, $title, $excerpt)
 	{
+		$obj = new stdClass();
 		$obj->regdate = date("YmdHis",$_SERVER['REQUEST_TIME']-$time);
 		$obj->ipaddress = $ipaddress;
 		$obj->url = $url;
@@ -390,6 +394,10 @@ class trackbackController extends trackback
 	{
 		$oModuleModel = &getModel('module');
 		$trackbackConfig = $oModuleModel->getModulePartConfig('trackback', $obj->originModuleSrl);
+		if(!$trackbackConfig)
+		{
+			return new Object();
+		}
 
 		$oModuleController = &getController('module');
 		if(is_array($obj->moduleSrlList))
@@ -399,6 +407,8 @@ class trackbackController extends trackback
 				$oModuleController->insertModulePartConfig('trackback', $moduleSrl, $trackbackConfig);
 			}
 		}
+
+		return new Object();
 	}
 }
 /* End of file trackback.controller.php */
