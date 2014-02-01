@@ -396,7 +396,7 @@ class trackbackController extends trackback
 		$trackbackConfig = $oModuleModel->getModulePartConfig('trackback', $obj->originModuleSrl);
 		if(!$trackbackConfig)
 		{
-			$trackbackConfig = new stdClass();
+			return new Object();
 		}
 
 		$oModuleController = &getController('module');
@@ -407,6 +407,8 @@ class trackbackController extends trackback
 				$oModuleController->insertModulePartConfig('trackback', $moduleSrl, $trackbackConfig);
 			}
 		}
+
+		return new Object();
 	}
 }
 /* End of file trackback.controller.php */
